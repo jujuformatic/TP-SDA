@@ -42,7 +42,53 @@ if(ptrB->nbLivres==0)
 		}
 }
 
+int rechercherLivreTitre(T_Bibliotheque *ptrB,char* chaine)
+{
+	int i,count=0;
+	for (i=0;i<(ptrB->nbLivres);i++){
+		if (strcmp((&(ptrB->etagere[i]))->titre,chaine)==0)
+		count++;
+	}
+return count;
+}
 
+int rechercherLivresAuteur(T_Bibliotheque *ptrB,char* chaine)
+{
+	int i,count=0;
+	for (i=0;i<(ptrB->nbLivres);i++){
+		if (strcmp((&(ptrB->etagere[i]))->auteur,chaine)==0)
+		printf("-%s \n",(&(ptrB->etagere[i]))->titre);
+		count++;
+	}
+return count;
+}
+
+int supprimerLivre(T_Bibliotheque *ptrB,char* chaine)
+{
+    int i=0;
+    if(strcmp(chaine,"")==0)return 0;
+    if(ptrB->nbLivres==0)return 0;
+    else if(ptrB->nbLivres==1)
+    {
+        (ptrB->nbLivres)--;
+        return 1;
+    }
+    else if(ptrB->nbLivres>1)
+    {
+    for(i=0;i<ptrB->nbLivres;i++)
+        if(strcmp((&(ptrB->etagere[i]))->titre, chaine)==0)
+        {
+            strcpy((&(ptrB->etagere[i]))->auteur, (&(ptrB->etagere[ptrB->nbLivres-1]))->auteur);
+            strcpy((&(ptrB->etagere[i]))->titre, (&(ptrB->etagere[ptrB->nbLivres-1]))->titre);
+            strcpy((&(ptrB->etagere[i]))->code, (&(ptrB->etagere[ptrB->nbLivres-1]))->code);
+            strcpy((&(ptrB->etagere[i]))->editeur, (&(ptrB->etagere[ptrB->nbLivres-1]))->editeur);
+            (&(ptrB->etagere[i]))->annee = (&(ptrB->etagere[ptrB->nbLivres-1]))->annee;
+            (ptrB->nbLivres)--;
+            return 1;
+        }
+    }
+    return 0;
+}
 
 
 

@@ -11,3 +11,5 @@ livre.o : livre.c
 biblio.o : biblio.c
 	$(c) $(op) -c biblio.c	
 
+main : es.o livre.o biblio.o main.c
+	$(c) $(op)  es.o livre.o biblio.o main.c -o main

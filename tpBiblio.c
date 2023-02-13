@@ -41,6 +41,7 @@ return choix;
 int main()
 {
 int reponse,chx;
+char chaine_rep[MAX_TITRE];
 T_Bibliotheque B; 
 init( &B );
 
@@ -50,30 +51,57 @@ chx= menu();
 switch(chx)
 	{
 	case  1 : reponse = ajouterLivre(   &B  );
-				if (reponse==1)
-					printf(" ajout reussi !!");
-					else
-					printf("impossible d ajouter (bibliotheque pleine)");
+			if (reponse==1)
+				printf(" ajout reussi !!\n");
+				else
+				printf("impossible d ajouter (bibliotheque pleine)\n");
 			break;
+
 	case 2 : reponse=afficherBibliotheque(&B);
 			if (reponse==0)	
-					printf("La bibliotheque est vide");
+				printf("La bibliotheque est vide\n");
+			break;
 
+	case 3: 
+			printf("Rentrez le titre du livre que vous souhaitez rechercher: ");
+			lireChaine("",chaine_rep,MAX_TITRE);
+			printf("\nLivre recherché: %s\n", chaine_rep);
+			reponse=rechercherLivreTitre(&B, chaine_rep);
+			if(reponse==0)
+				printf("Le livre n'est pas présent dans la bibliothèque\n");
+				else
+				printf("Le livre est présent en %d exemplaires dans la bibliothèque\n", reponse);
+			break;
+
+	case 4: 
+			printf("Rentrez le nom de l'auteur dont vous voulez la liste des oeuvres: ");
+			lireChaine("",chaine_rep,MAX_TITRE);
+			printf("\nListe des livres de %s :\n", chaine_rep);
+			reponse=rechercherLivresAuteur(&B, chaine_rep);
+			if (reponse==0)	
+				printf("La bibliothèque ne contient aucun livre de cet auteur\n");
+			break;
+
+	case 5: 
+			printf("Rentrez le titre du livre que vous souhaitez supprimer: ");
+			lireChaine("",chaine_rep,MAX_TITRE);
+			printf("\nLivre à supprimer: %s\n", chaine_rep);
+			reponse=supprimerLivre(&B, chaine_rep);
+			if (reponse==0)	
+				printf("Ce livre n'est pas dans la bibliothèque\n");
+				else
+				printf("Suppression réussie du livre de la bibliothèque\n");
+			break;
+
+	case 0:
+			printf("Fermeture du programme de traitement de bibliothèque\n");
+			break;
+	default:
+			printf("Cette demande n'est pas valide\n");
 			break;	
-	
-	
-	
-	
-	
 	}
 
 }while(chx!=0);
-
-
-
-
-
-
 return 0;
 
 }
