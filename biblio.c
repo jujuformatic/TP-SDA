@@ -90,5 +90,42 @@ int supprimerLivre(T_Bibliotheque *ptrB,char* chaine)
     return 0;
 }
 
+int Emprunter(T_Bibliotheque *ptrb,char * livre, char* nom,char* code_l)
+{
+	int i;
+	i=rechercherLivresAuteur(ptrb,livre);
+	if (i==0)
+		return 0;
+	else
+	{
+		for(i=0;i<ptrb->nbLivres;i++){
+			if((strcmp((&(ptrb->etagere[i]))->titre, livre)==0)&&(strcmp((&(ptrb->etagere[i]))->code, code_l)==0))
+			{
+				if (strcmp((&(ptrb->etagere[i]))->emprunteur,"")==0){
+					strcpy((&(ptrb->etagere[i]))->emprunteur,nom);
+					return 1;
+				}
+				else 
+					return 0;
+			}
+		}
+	}
+	return 0;
+}
 
-
+int Rendre(T_Bibliotheque *ptrb,char * livre,char* code_l){
+	int i;
+	i=rechercherLivresAuteur(ptrb,livre);
+	if (i==0)
+		return 0;
+	else
+		for(i=0;i<ptrb->nbLivres;i++)
+		{		
+			if((strcmp((&(ptrb->etagere[i]))->titre, livre)==0)&&(strcmp((&(ptrb->etagere[i]))->code, code_l)==0))
+			{
+				strcpy((&(ptrb->etagere[i]))->emprunteur,"");
+				return 1;
+			}
+		}
+	return 0;	
+}			

@@ -15,13 +15,13 @@ printf("\n 5 - supprimer un livre de la bibliotheque");
 
 // au programme du TP8 :
 // ajouter le champ emprunteur à votre structure T_Livre
-/*
+
 printf("\n 6 - emprunter un livre de la bibliotheque");
 printf("\n 7 - restituer/rendre un livre de la bibliotheque");
 printf("\n 8 - trier les livres (par titre)");
 printf("\n 9 - trier les livres (par auteur)");
 printf("\n 10 - trier les livres (par annee)");
-*/
+
 // si les 5 choix (6-10) sont bien codés, changez le type T_Emp et remplacez-le par la structure T_Emp visible dans livre.h
 // vous pourrez alors faire les menus 11,12,etc...
 // printf("\n 11- lister les livres disponibles "); 
@@ -42,6 +42,8 @@ int main()
 {
 int reponse,chx;
 char chaine_rep[MAX_TITRE];
+char n_emp[K_MaxEmp];
+char code[MAX_CODE];
 T_Bibliotheque B; 
 init( &B );
 
@@ -92,7 +94,31 @@ switch(chx)
 				else
 				printf("Suppression réussie du livre de la bibliothèque\n");
 			break;
-
+	case 6:
+			printf("Rentrez le titre du livre que vous souhaitez emprunter ");
+			lireChaine("",chaine_rep,MAX_TITRE);
+			printf("Rentrez le code du livre que vous souhaitez emprunter ");
+			lireChaine("",code,MAX_CODE);
+			printf("Rentrez le nom de l'emprunteur ");
+			lireChaine("",n_emp,K_MaxEmp);
+			reponse=Emprunter(&B,chaine_rep,n_emp,code);
+			if (reponse==0)
+				printf("Emprunt impossible");
+			else 
+				printf("Emprunt réussit");
+			break;
+		
+	case 7:
+			printf("Rentrez le titre du livre que vous souhaitez rendre ");
+			lireChaine("",chaine_rep,MAX_TITRE);
+			printf("Rentrez le code du livre que vous souhaitez emprunter ");
+			lireChaine("",code,MAX_CODE);
+			reponse=Rendre(&B,chaine_rep,code);
+			if (reponse==0)
+				printf("Retour impossible");
+			else 
+				printf("Retour Réussit");
+			break;
 	case 0:
 			printf("Fermeture du programme de traitement de bibliothèque\n");
 			break;
