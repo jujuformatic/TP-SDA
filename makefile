@@ -2,7 +2,7 @@ c=gcc
 op=-Wall -Wextra
 
 all : es.o livre.o biblio.o tpBiblio.c 	
-	$(c) $(op)  es.o livre.o biblio.o tpBiblio.c -o exe
+	$(c) $(op)  es.o livre.o biblio.o tpBiblio.c -o tpBiblio.exe
 
 es.o : es.c
 	$(c) $(op) -c es.c	

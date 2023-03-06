@@ -1,5 +1,7 @@
 # include "biblio.h"
 
+#define AVANT -1
+#define APRES 1
 
 void init (T_Bibliotheque *ptrB)
 {
@@ -84,6 +86,7 @@ int supprimerLivre(T_Bibliotheque *ptrB,char* chaine)
             strcpy((&(ptrB->etagere[i]))->editeur, (&(ptrB->etagere[ptrB->nbLivres-1]))->editeur);
             (&(ptrB->etagere[i]))->annee = (&(ptrB->etagere[ptrB->nbLivres-1]))->annee;
             (ptrB->nbLivres)--;
+
             return 1;
         }
     }
@@ -128,4 +131,75 @@ int Rendre(T_Bibliotheque *ptrb,char * livre,char* code_l){
 			}
 		}
 	return 0;	
-}			
+}	
+
+
+int triTitre(T_Bibliotheque  *ptrB){
+	int i,j=0;
+	int ordre;
+	T_livre aux;
+
+	for(i=0;i<ptrB->nbLivres-1;i++){
+		for(j=0;j<ptrB->nbLivres-1;j++){
+			ordre=compareChaines(ptrB->etagere[j].titre, ptrB->etagere[j+1].titre);
+			if(ordre==APRES){ //Le livre en i se place après celui en i+1
+				aux = ptrB->etagere[j]; 
+				ptrB->etagere[j] = ptrB->etagere[j+1];
+				ptrB->etagere[j+1] = aux;
+			}
+		}
+	}
+return 0;
+}
+
+int triAuteur(T_Bibliotheque  *ptrB){
+	int i,j=0;
+	int ordre;
+	T_livre aux;
+
+	for(i=0;i<ptrB->nbLivres-1;i++){
+		for(j=0;j<ptrB->nbLivres-1;j++){
+			ordre=compareChaines(ptrB->etagere[j].auteur, ptrB->etagere[j+1].auteur);
+			if(ordre==APRES){ //Le livre en i se place après celui en i+1
+				aux = ptrB->etagere[j]; 
+				ptrB->etagere[j] = ptrB->etagere[j+1];
+				ptrB->etagere[j+1] = aux;
+			}
+		}
+	}
+return 0;
+}
+
+int triAnnee(T_Bibliotheque  *ptrB){
+	int i,j=0;
+	T_livre aux;
+
+	for(i=0;i<ptrB->nbLivres-1;i++){
+		for(j=0;j<ptrB->nbLivres-1;j++){
+			if(ptrB->etagere[j].annee > ptrB->etagere[j+1].annee){ //Le livre en i se place après celui en i+1
+				aux = ptrB->etagere[j]; 
+				ptrB->etagere[j] = ptrB->etagere[j+1];
+				ptrB->etagere[j+1] = aux;
+			}
+		}
+	}
+return 0;
+}
+
+int compareChaines(char* chaineA, char* chaineB){
+	int i=0;
+
+	do {
+		if(chaineA[i]-chaineB[i]>0) return APRES; //Exemple: on compare A(ab) et B(aa): a-a=0 donc on continue la boucle
+		if(chaineA[i]-chaineB[i]<0) return AVANT;  //ensuite b-a=1>0 donc la chaine A se place après la B par tri croissant 
+		i++;
+	} while(chaineA[i-1]!='\0');
+return 0;
+}
+
+void echangeLivres(T_livre livreA, T_livre livreB){
+	T_livre aux;
+	aux=livreA;
+	livreA=livreB;
+	livreB=aux;
+}

@@ -94,6 +94,7 @@ switch(chx)
 				else
 				printf("Suppression réussie du livre de la bibliothèque\n");
 			break;
+
 	case 6:
 			printf("Rentrez le titre du livre que vous souhaitez emprunter ");
 			lireChaine("",chaine_rep,MAX_TITRE);
@@ -119,6 +120,28 @@ switch(chx)
 			else 
 				printf("Retour Réussit");
 			break;
+
+	case 8:
+			printf("Tri des livres dans la bibliothèque par titre\n");
+			triTitre(&B);
+			printf("Nouveau tri de la biliothèque:\n");
+			afficherBibliotheque(&B);
+			break;
+
+	case 9:
+			printf("Tri des livres dans la bibliothèque par auteur\n");
+			triAuteur(&B);
+			printf("Nouveau tri de la biliothèque:\n");
+			afficherBibliotheque(&B);
+			break;
+
+	case 10:
+			printf("Tri des livres dans la bibliothèque par année\n");
+			triAnnee(&B);
+			printf("Nouveau tri de la biliothèque:\n");
+			afficherBibliotheque(&B);
+			break;
+
 	case 0:
 			printf("Fermeture du programme de traitement de bibliothèque\n");
 			break;
